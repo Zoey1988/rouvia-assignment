@@ -1,8 +1,22 @@
+:root {
+  --body-bg: #ffffff;
+  --text-color: #000000;
+  --boxshadow-color: #f6f8ff;
+}
+
+.dark {
+  --body-bg: #141d2f;
+  --text-color: #ffffff;
+  --bg-color: #1e2a47;
+  --boxshadow-color: #141d2f;
+}
+
 body {
   margin: 0;
   font-family: 'Space Mono';
   font-size: 15px;
   line-height: 25px;
+  height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -17,10 +31,16 @@ body {
 
 a {
   text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
 }
 
 button {
   cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 h1 {
@@ -42,16 +62,6 @@ h4 {
   font-size: 13px;
   font-weight: bold;
   line-height: 20px;
-}
-
-.container {
-  width: 650px;
-  max-width: 100%;
-  margin: 24px auto;
-}
-
-.d-flex {
-  display: flex;
 }
 
 .text-muted {

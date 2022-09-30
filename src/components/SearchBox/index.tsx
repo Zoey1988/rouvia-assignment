@@ -17,6 +17,9 @@ function SearchBox({ handleSearch }: PropTypes) {
 
   const handleSubmitSearch = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!searchText) {
+      return;
+    }
     handleSearch(searchText);
     setSearchText('');
   };
@@ -33,7 +36,11 @@ function SearchBox({ handleSearch }: PropTypes) {
         className="search-box-form__input"
         onChange={event => handleSearchChange(event)}
       />
-      <button type="submit" className="search-box-form__button">
+      <button
+        type="submit"
+        disabled={!searchText}
+        className="search-box-form__button"
+      >
         Search
       </button>
     </form>
