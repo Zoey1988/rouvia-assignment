@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import SearchBox from './components/SearchBox';
 import UserInfo from './components/UserInfo';
 
@@ -14,22 +16,17 @@ import './App.scss';
 const API_URL = 'https://api.github.com/users/';
 
 function App() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('dark');
+  const [searchText, setSearchText] = useState('zoey1988');
 
-  //TODO: use react query for same queries
-  const searchUser = async (searchText: string) => {
-    setLoading(true);
-    try {
-      const result = await getRequestAPI<User>(`${API_URL}${searchText}`);
-      setUser(result);
-    } catch (error) {
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
+  const getUser = async () => {
+    return await getRequestAPI<User>(`${API_URL}${searchText}`);
   };
+
+  const { data: user, isLoading } = useQuery(
+    ['github-user', searchText],
+    getUser
+  );
 
   const themeIcon = theme === 'light' ? moonIcon : sunIcon;
 
@@ -40,8 +37,6 @@ function App() {
   };
 
   useEffect(() => {
-    searchUser('zoey1988');
-
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme && ['light', 'dark'].includes(savedTheme)) {
       setTheme(savedTheme);
@@ -58,9 +53,9 @@ function App() {
           </button>
         </div>
 
-        <SearchBox handleSearch={searchUser} />
+        <SearchBox handleSearch={setSearchText} />
 
-        {loading ? (
+        {isLoading ? (
           'Searching...'
         ) : user ? (
           <UserInfo user={user} />
