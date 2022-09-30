@@ -1,0 +1,34 @@
+.search-box-form {
+  background-color: #1e2a47;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__icon {
+    width: 18px;
+    height: 18px;
+    margin: 0 10px;
+  }
+  &__input {
+    flex-grow: 1;
+    margin-right: 8px;
+    background-color: transparent;
+    outline: 0;
+    padding: 10px;
+    border: 0;
+    color: #ffffff;
+    &::placeholder {
+      color: #ffffff;
+    }
+  }
+  &__button {
+    background-color: #0079ff;
+    padding: 10px 15px;
+    color: #ffffff;
+    border-radius: 8px;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
